@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upfood_restaurant/src/util/colors.dart';
+import 'package:upfood_restaurant/src/view/productsPage.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -189,7 +190,12 @@ class BtnMenu extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProductsPage()),
+                  );
+                },
               ),
             ),
             ButtonTheme(
