@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upfood_restaurant/src/util/colors.dart';
-import 'package:upfood_restaurant/src/view/productsPage.dart';
+import 'package:upfood_restaurant/src/view/dishesPage.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -153,7 +153,7 @@ class _TabsContentState extends State<TabsContent>
         Padding(
           padding: EdgeInsets.only(top: 260, left: 30),
           child: Text(
-            'Products sold ' + monthName,
+            'Dishes sold ' + monthName,
             style: TextStyle(
                 color: Color(0xFF4D4F5C), fontWeight: FontWeight.w300),
           ),
@@ -185,7 +185,7 @@ class BtnMenu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'PRODUCTS',
+                      'DISHES',
                       style: TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   ],
@@ -193,7 +193,7 @@ class BtnMenu extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProductsPage()),
+                    MaterialPageRoute(builder: (context) => DishesPage()),
                   );
                 },
               ),
