@@ -6,7 +6,7 @@ class Dish {
   int _price;
   int _offerPrice;
 
-  Dish(this._id, this._name, this._description, this._price, this._offerPrice, this._restaurantName);
+  Dish(this._id, this._name, this._description, this._restaurantName, this._price, this._offerPrice);
 
   String get id => _id;
   String get name => _name;

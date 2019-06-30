@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:upfood_restaurant/src/repository/dishesRepository.dart';
 import 'package:upfood_restaurant/src/model/dishDTO.dart';
 
 
-class DishesPageBloc {
+class DishesBloc {
 
   final _repository = Repository();
   final _name = BehaviorSubject<String>();
@@ -22,9 +21,15 @@ class DishesPageBloc {
   Observable<int> get offerPrice => _offerPrice.stream;
   Observable<bool> get showProgress => _showProgress.stream;
 
-  Stream<QuerySnapshot> dishesList(String restaurantName) {
-    return _repository.getDishesList(restaurantName);
+
+  Stream<List<Dish>> dishesList(String restaurantName) {
+    return _repository.getDishes(restaurantName);
   }
+
+  Future<void> registerDish(String name, String description, String restaurantName, int price, int offerPrice) {
+    return _repository.registerDish(name, description, restaurantName, price, offerPrice);
+  }
+
 
   void dispose() async {
     _name.close();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:upfood_restaurant/src/util/colors.dart';
-import 'package:upfood_restaurant/src/data/dishesPageBlocProvider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:upfood_restaurant/src/bloc/dishesBlocProvider.dart';
+import 'package:upfood_restaurant/src/model/dishDTO.dart';
 
 class DishesPage extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class DishesPage extends StatefulWidget {
 class _DishesPageState extends State<DishesPage> {
   @override
   Widget build(BuildContext context) {
-    return DishesPageBlocProvider(
+    return DishesBlocProvider(
       child: Scaffold(
         body: ListView(
           children: <Widget>[
@@ -69,12 +69,12 @@ class DishesList extends StatefulWidget {
 }
 
 class _DishesListState extends State<DishesList> {
-  DishesPageBloc _bloc;
+  DishesBloc _bloc;
   
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bloc = DishesPageBlocProvider.of(context);
+    _bloc = DishesBlocProvider.of(context);
   }
   
   @override
@@ -88,37 +88,34 @@ class _DishesListState extends State<DishesList> {
     return Container(
       child: StreamBuilder(
         stream: _bloc.dishesList('flordeChile'),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Dish>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              itemCount: snapshot.data.documents.length,
+              itemCount: snapshot.data.length,
               padding: EdgeInsets.only(left: 8, right: 8),
               shrinkWrap: true,
               itemBuilder: (context, index) => ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://cdn.sallysbakingaddiction.com/wp-content/uploads/2013/04/triple-chocolate-cake-4.jpg'),
+                  child: Icon(Icons.restaurant),
                 ),
                 title: Text(
-                  snapshot.data.documents.elementAt(index).data['name'],
+                  snapshot.data.elementAt(index).name,
                   style: TextStyle(color: fontBlueColor, fontSize: 16),
                 ),
                 subtitle: Text(
-                  snapshot.data.documents.elementAt(index).data['description'],
+                  snapshot.data.elementAt(index).description,
+                  maxLines: 2,
                   style: TextStyle(color: fontBlueColor, fontSize: 12),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      'Stock',
+                      '\$' + snapshot.data.elementAt(index).price.toString(),
                       style: TextStyle(color: fontBlueColor, fontSize: 12),
                     ),
                     SizedBox(width: 40),
-                    Text(
-                      '\$990',
-                      style: TextStyle(color: fontBlueColor, fontSize: 12),
-                    ),
+                    Icon(Icons.keyboard_arrow_right),
                   ],
                 ),
                 onTap: () {},

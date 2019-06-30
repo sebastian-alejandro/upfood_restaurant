@@ -20,7 +20,7 @@ class FirestoreProvider {
 
   Future<void> registerDish(
       String name, String description, String restaurantName, int price, int offerPrice) async {
-    return _firestore.collection('dishes').document(name).setData({
+    return _firestore.collection('dishes').add({
       'name': name,
       'description': description,
       'restaurant': restaurantName,
