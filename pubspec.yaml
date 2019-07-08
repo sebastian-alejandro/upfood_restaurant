@@ -69,6 +69,38 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/Montserrat/Montserrat-Italic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/Montserrat/Montserrat-LightItalic.ttf
+          style: italic
+    - family: OpenSans
+      fonts:
+        - asset: assets/Open_Sans/OpenSans-Regular.ttf
+        - asset: assets/Open_Sans/OpenSans-Italic.ttf
+          style: italic
+        - asset: assets/Open_Sans/OpenSans-Light.ttf
+          weight: 300
+        - asset: assets/Open_Sans/OpenSans-LightItalic.ttf
+          style: italic
+        - asset: assets/Open_Sans/OpenSans-Bold.ttf
+          weight: 700
+        - asset: assets/Open_Sans/OpenSans-BoldItalic.ttf
+          style: italic
+        - asset: assets/Open_Sans/OpenSans-ExtraBold.ttf
+          weight: 800
+        - asset: assets/Open_Sans/OpenSans-ExtraBoldItalic.ttf
+          style: italic
+        - asset: assets/Open_Sans/OpenSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/Open_Sans/OpenSans-SemiBoldItalic.ttf
+          style: italic
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
