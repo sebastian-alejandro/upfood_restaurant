@@ -2,8 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:upfood_restaurant/src/util/colors.dart';
 import 'package:upfood_restaurant/src/view/dishesPage.dart';
+import 'package:upfood_restaurant/src/view/offersPage.dart';
+import 'package:upfood_restaurant/src/view/reviewsPage.dart';
+import 'package:upfood_restaurant/src/view/followersPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,6 +53,7 @@ class TopBar extends StatelessWidget {
             child: Text(
               'nombreLocal',
               style: TextStyle(
+                fontFamily: 'OpenSans',
                 fontSize: 20,
                 color: Color(0xFF707070),
               ),
@@ -404,7 +407,7 @@ class HomeMenu extends StatelessWidget {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              Container(
+              Ink(
                 width: 328,
                 height: 226,
                 decoration: BoxDecoration(
@@ -420,7 +423,7 @@ class HomeMenu extends StatelessWidget {
                 child: ListView(
                   children: <Widget>[
                     ListTile(
-                      leading: FlutterLogo(),
+                      leading: Icon(Icons.restaurant_menu, color: Color(0xFFA09ED6),),
                       title: Text('Platos',
                         style: TextStyle(
                           fontFamily: 'OpenSans',
@@ -429,10 +432,15 @@ class HomeMenu extends StatelessWidget {
                         ),
                       ),
                       trailing: Icon(Icons.keyboard_arrow_right),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DishesPage()),
+                        );
+                      },
                     ),
                     ListTile(
-                      leading: FlutterLogo(),
+                      leading: Icon(Icons.attach_money, color: Color(0xFFA09ED6),),
                       title: Text('Ofertas',
                         style: TextStyle(
                           fontFamily: 'OpenSans',
@@ -441,10 +449,15 @@ class HomeMenu extends StatelessWidget {
                         ),
                       ),
                       trailing: Icon(Icons.keyboard_arrow_right),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OffersPage()),
+                        );
+                      },
                     ),
                     ListTile(
-                      leading: FlutterLogo(),
+                      leading: Icon(Icons.chat, color: Color(0xFFA09ED6),),
                       title: Text('Reseñas',
                         style: TextStyle(
                           fontFamily: 'OpenSans',
@@ -453,10 +466,15 @@ class HomeMenu extends StatelessWidget {
                         ),
                       ),
                       trailing: Icon(Icons.keyboard_arrow_right),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ReviewsPage()),
+                        );
+                      },
                     ),
                     ListTile(
-                      leading: FlutterLogo(),
+                      leading: Icon(Icons.group, color: Color(0xFFA09ED6),),
                       title: Text('Seguidores',
                         style: TextStyle(
                           fontFamily: 'OpenSans',
@@ -465,7 +483,12 @@ class HomeMenu extends StatelessWidget {
                         ),
                       ),
                       trailing: Icon(Icons.keyboard_arrow_right),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FollowersPage()),
+                        );
+                      },
                     ),
                   ],
                 ),
