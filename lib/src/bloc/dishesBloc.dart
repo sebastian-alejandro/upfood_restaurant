@@ -23,6 +23,7 @@ class DishesBloc {
 
 
   Stream<List<Dish>> dishesList(String restaurantName) {
+    print('Enviando list a la UI');
     return _repository.getDishes(restaurantName);
   }
 

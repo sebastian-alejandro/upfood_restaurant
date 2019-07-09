@@ -1,7 +1,4 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:upfood_restaurant/src/view/dishesPage.dart';
 import 'package:upfood_restaurant/src/view/offersPage.dart';
 import 'package:upfood_restaurant/src/view/reviewsPage.dart';

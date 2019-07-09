@@ -32,6 +32,10 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled true
+    }
+
+    defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.sebastiansoftwareengineer.upfood_restaurant"
         minSdkVersion 16

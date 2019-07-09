@@ -217,7 +217,7 @@ class _DishesListState extends State<DishesList> {
                   ),
             );
           } else {
-            return Text('Cargnado lista...espere');
+            return Text('Cargando lista...espere');
           }
         },
       ),

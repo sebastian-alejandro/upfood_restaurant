@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.8.2
+  cloud_firestore: ^0.9.0
   rxdart: ^0.20.0
 
   # The following adds the Cupertino Icons font to your application.
@@ -79,6 +79,34 @@ flutter:
         - asset: assets/Montserrat/Montserrat-Light.ttf
           weight: 300
         - asset: assets/Montserrat/Montserrat-LightItalic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-Black.ttf
+          weight: 900
+        - asset: assets/Montserrat/Montserrat-BlackItalic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/Montserrat/Montserrat-BoldItalic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: assets/Montserrat/Montserrat-ExtraBoldItalic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: assets/Montserrat/Montserrat-ExtraLightItalic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-Medium.ttf
+          weight: 400
+        - asset: assets/Montserrat/Montserrat-MediumItalic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: assets/Montserrat/Montserrat-SemiBoldItalic.ttf
+          style: italic
+        - asset: assets/Montserrat/Montserrat-Thin.ttf
+          weight: 100
+        - asset: assets/Montserrat/Montserrat-ThinItalic.ttf
           style: italic
     - family: OpenSans
       fonts:

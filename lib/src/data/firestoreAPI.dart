@@ -48,6 +48,7 @@ class FirestoreProvider {
   }
 
   Stream<QuerySnapshot> getDishesList(String restaurantName) {
+    print('Pidiendo Platos a:' + restaurantName);
     return _firestore
         .collection('dishes')
         .where('restaurant', isEqualTo: restaurantName)
