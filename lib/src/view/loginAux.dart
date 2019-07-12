@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upfood_restaurant/src/view/homePage.dart';
-import 'package:upfood_restaurant/src/view/userHomePage.dart';
+import 'package:upfood_restaurant/src/view/userPage.dart';
 class LoginAux extends StatefulWidget {
   @override
   _LoginAuxState createState() => _LoginAuxState();
@@ -49,7 +49,7 @@ class _LoginAuxState extends State<LoginAux> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserHomePage()),
+                  MaterialPageRoute(builder: (context) => UserPage()),
                 );
               },
             ),
