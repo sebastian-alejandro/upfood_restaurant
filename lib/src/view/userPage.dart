@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:upfood_restaurant/src/bloc/dishesBlocProvider.dart';
 import 'package:upfood_restaurant/src/model/dishDTO.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -32,7 +34,7 @@ class _UserPageState extends State<UserPage> {
         return ListView(
           children: <Widget>[
             TopBar(),
-            Text('Mapa'),
+            MapContent(),
           ],
         );
         break;
@@ -396,6 +398,36 @@ class _ListDishesState extends State<ListDishes> {
   }
 }
 
+class MapContent extends StatefulWidget {
+  @override
+  _MapContentState createState() => _MapContentState();
+}
+
+class _MapContentState extends State<MapContent> {
+  CameraPosition _initialPosition = CameraPosition(
+    target: LatLng(-33.032101, -71.5908382),
+    zoom: 17,
+  );
+  Completer<GoogleMapController> _controller = Completer();
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height - 128,
+      width: MediaQuery.of(context).size.width,
+      child: GoogleMap(
+        mapType: MapType.hybrid,
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: _initialPosition,
+      ),
+    );
+  }
+}
+
 class UserProfile extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
@@ -474,7 +506,8 @@ class _UserProfileState extends State<UserProfile> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                Text('8',
+                                Text(
+                                  '8',
                                   style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 24,
@@ -485,34 +518,42 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                             Column(
                               children: <Widget>[
-                                Text('Seguidores',
+                                Text(
+                                  'Seguidores',
                                   style: TextStyle(
                                     fontFamily: 'OpenSans',
                                     color: Color(0xFF707070),
                                     fontSize: 14,
-                                  ),),
-                                Text('12',
+                                  ),
+                                ),
+                                Text(
+                                  '12',
                                   style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 24,
                                     color: Color(0xFF707070),
-                                  ),),
+                                  ),
+                                ),
                               ],
                             ),
                             Column(
                               children: <Widget>[
-                                Text('Siguiendo',
+                                Text(
+                                  'Siguiendo',
                                   style: TextStyle(
                                     fontFamily: 'OpenSans',
                                     color: Color(0xFF707070),
                                     fontSize: 14,
-                                  ),),
-                                Text('34',
+                                  ),
+                                ),
+                                Text(
+                                  '34',
                                   style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 24,
                                     color: Color(0xFF707070),
-                                  ),),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
