@@ -3,9 +3,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:upfood_restaurant/src/repository/dishesRepository.dart';
 import 'package:upfood_restaurant/src/model/dishDTO.dart';
 
-
 class DishesBloc {
-
   final _repository = Repository();
   final _name = BehaviorSubject<String>();
   final _description = BehaviorSubject<String>();
@@ -21,16 +19,44 @@ class DishesBloc {
   Observable<int> get offerPrice => _offerPrice.stream;
   Observable<bool> get showProgress => _showProgress.stream;
 
-
   Stream<List<Dish>> dishesList(String restaurantName) {
-    print('Enviando list a la UI');
     return _repository.getDishes(restaurantName);
   }
 
-  Future<void> registerDish(String name, String description, String restaurantName, int price, int offerPrice) {
-    return _repository.registerDish(name, description, restaurantName, price, offerPrice);
+  Stream<Dish> dish(String id) {
+    return _repository.getDish(id);
   }
 
+  Future<void> registerDish(
+      String name,
+      String description,
+      String restaurantName,
+      String imgUrl,
+      double rating,
+      int reviews,
+      int price,
+      int offerPrice,
+      bool isInOffer,
+      bool isEnabled) {
+    return _repository.registerDish(name, description, restaurantName, imgUrl,
+        rating, reviews, price, offerPrice, isInOffer, isEnabled);
+  }
+
+  Future<void> updateDish(
+      String id,
+      String name,
+      String description,
+      String restaurantName,
+      String imgUrl,
+      double rating,
+      int reviews,
+      int price,
+      int offerPrice,
+      bool isInOffer,
+      bool isEnabled) {
+    return _repository.updateDish(id, name, description, restaurantName, imgUrl,
+        rating, reviews, price, offerPrice, isInOffer, isEnabled);
+  }
 
   void dispose() async {
     _name.close();
@@ -40,5 +66,4 @@ class DishesBloc {
     _offerPrice.close();
     _showProgress.close();
   }
-
 }

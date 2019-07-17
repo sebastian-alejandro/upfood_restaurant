@@ -370,7 +370,7 @@ class _ListDishesState extends State<ListDishes> {
                                       ],
                                     ),
                                     Text(
-                                      snapshot.data.elementAt(index).rating,
+                                      snapshot.data.elementAt(index).rating.toString(),
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Montserrat',

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirestoreProvider {
+class FirestoreAPI {
   Firestore _firestore = Firestore.instance;
 
   Future<int> authenticateUser(String email, String password) async {
@@ -19,26 +19,56 @@ class FirestoreProvider {
   }
 
   Future<void> registerDish(
-      String name, String description, String restaurantName, int price, int offerPrice) async {
+      String name,
+      String description,
+      String restaurantName,
+      String imgUrl,
+      double rating,
+      int reviews,
+      int price,
+      int offerPrice,
+      bool isInOffer,
+      bool isEnabled) async {
     return _firestore.collection('dishes').add({
       'name': name,
       'description': description,
       'restaurant': restaurantName,
+      'imgUrl': imgUrl,
+      'rating': rating,
+      'reviews': reviews,
       'price': price,
-      'offerPrice': offerPrice
+      'offerPrice': offerPrice,
+      'isInOffer': isInOffer,
+      'isEnabled': isEnabled,
     });
   }
 
   Future<void> updateDish(
-      String id, String name, String description, int price, int offerPrice) {
+      String id,
+      String name,
+      String description,
+      String restaurantName,
+      String imgUrl,
+      double rating,
+      int reviews,
+      int price,
+      int offerPrice,
+      bool isInOffer,
+      bool isEnabled) {
     return _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap =
           await transaction.get(_firestore.collection('dishes').document(id));
       await transaction.update(freshSnap.reference, {
         'name': name,
         'description': description,
+        'restaurant': restaurantName,
+        'imgUrl': imgUrl,
+        'rating': rating,
+        'reviews': reviews,
         'price': price,
-        'offerPrice': offerPrice
+        'offerPrice': offerPrice,
+        'isInOffer': isInOffer,
+        'isEnabled': isEnabled,
       });
     });
   }
@@ -48,7 +78,6 @@ class FirestoreProvider {
   }
 
   Stream<QuerySnapshot> getDishesList(String restaurantName) {
-    print('Pidiendo Platos a:' + restaurantName);
     return _firestore
         .collection('dishes')
         .where('restaurant', isEqualTo: restaurantName)

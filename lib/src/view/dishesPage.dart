@@ -156,7 +156,7 @@ class _DishesListState extends State<DishesList> {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(
-                              "https://keviniscooking.com/wp-content/uploads/2018/02/How-to-Make-Memphis-Dry-Rub-Ribs-square-500x500.jpg"),
+                              snapshot.data.elementAt(index).imgUrl),
                         ),
                       ),
                     ),
@@ -201,7 +201,7 @@ class _DishesListState extends State<DishesList> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          '4.6',
+                          snapshot.data.elementAt(index).rating.toString(),
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 24,
