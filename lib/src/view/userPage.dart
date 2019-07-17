@@ -404,14 +404,30 @@ class MapContent extends StatefulWidget {
 }
 
 class _MapContentState extends State<MapContent> {
+
+  List<Marker> allMarkers = [];
+
   CameraPosition _initialPosition = CameraPosition(
     target: LatLng(-33.032101, -71.5908382),
     zoom: 17,
   );
+
   Completer<GoogleMapController> _controller = Completer();
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    allMarkers.add(Marker(
+        markerId: MarkerId('myMarker'),
+        draggable: true,
+        onTap: () {
+          print('Marker Tapped');
+        },
+        position: LatLng(-33.032101, -71.5908382)));
   }
 
   @override
@@ -420,9 +436,9 @@ class _MapContentState extends State<MapContent> {
       height: MediaQuery.of(context).size.height - 128,
       width: MediaQuery.of(context).size.width,
       child: GoogleMap(
-        mapType: MapType.hybrid,
         onMapCreated: _onMapCreated,
         initialCameraPosition: _initialPosition,
+        markers: Set.from(allMarkers),
       ),
     );
   }
