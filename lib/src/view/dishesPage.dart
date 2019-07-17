@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:upfood_restaurant/src/bloc/dishesBlocProvider.dart';
 import 'package:upfood_restaurant/src/model/dishDTO.dart';
+import 'package:upfood_restaurant/src/view/newDishPage.dart';
 
 class DishesPage extends StatefulWidget {
   @override
@@ -21,7 +22,12 @@ class _DishesPageState extends State<DishesPage> {
         ),
         floatingActionButton: FloatingActionButton(
           mini: true,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewDishPage()),
+            );
+          },
           child: Icon(Icons.add),
           backgroundColor: Color(0xFF52CEE2),
         ),
