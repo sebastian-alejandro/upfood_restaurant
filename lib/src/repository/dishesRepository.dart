@@ -4,9 +4,6 @@ import 'package:upfood_restaurant/src/model/dishDTO.dart';
 class Repository {
   final _firestoreAPI = FirestoreAPI();
 
-  Future<int> authenticateUser(String email, String password) =>
-      _firestoreAPI.authenticateUser(email, password);
-
   Future<void> registerDish(
           String name,
           String description,

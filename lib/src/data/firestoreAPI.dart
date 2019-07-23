@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:upfood_restaurant/src/model/userDTO.dart';
 
 class FirestoreAPI {
   Firestore _firestore = Firestore.instance;
 
-  Future<int> authenticateUser(String email, String password) async {
+  Future<bool> authenticateUser(String email, String password) async {
     final QuerySnapshot result = await _firestore
         .collection('users')
         .where('email', isEqualTo: email)
@@ -11,11 +12,28 @@ class FirestoreAPI {
 
     final List<DocumentSnapshot> documents = result.documents;
 
-    if (documents.length == 0) {
-      return 0;
+    if (documents.length == 0 || documents.elementAt(0).data[password] != password) {
+      return false;
     } else {
-      return 1;
+      return true;
     }
+  }
+
+  Future<void> registerUser(User user) async {
+    return _firestore
+        .collection('users')
+        .document(user.id)
+        .setData({
+      'email': user.email,
+      'password': user.password,
+      'lastName': user.lastName,
+      'name': user.name,
+      'followersCount': user.followersCount,
+      'followingCount': user.followingCount,
+      'reviews': user.reviews,
+      'isEnabled': user.isEnabled,
+
+    });
   }
 
   Future<void> registerDish(
