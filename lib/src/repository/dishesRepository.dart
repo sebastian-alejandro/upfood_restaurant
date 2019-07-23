@@ -61,21 +61,13 @@ class Repository {
         snapshot.documents.toList().forEach((document) {
           String id = document.documentID;
           String name = document.data['name'];
-          print(document.data['name']);
           String description = document.data['description'];
-          print(document.data['description']);
           String restaurantName = document.data['restaurant'];
-          print(document.data['restaurant']);
           String imgUrl = document.data['imgUrl'];
-          print(document.data['imgUrl']);
           double rating = document.data['rating'].toDouble();
-          print(document.data['rating']);
           int reviews = document.data['reviews'];
-          print(document.data['reviews']);
           int price = document.data['price'];
-          print(document.data['price']);
           int offerPrice = document.data['offerPrice'];
-          print(document.data['offerPrice']);
           bool isInOffer = document.data['isInOffer'];
           bool isEnabled = document.data['isEnabled'];
 

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:upfood_restaurant/src/bloc/dishesBlocProvider.dart';
+import 'package:upfood_restaurant/src/model/dishDTO.dart';
+import 'package:upfood_restaurant/src/view/dishesPage.dart';
+import 'dart:io';
 
 class NewDishPage extends StatefulWidget {
   @override
@@ -8,14 +12,17 @@ class NewDishPage extends StatefulWidget {
 class _NewDishPageState extends State<NewDishPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          TopBar(),
-          DishForm(),
-        ],
+    return DishesBlocProvider(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: ListView(
+          children: <Widget>[
+            TopBar(),
+            DishForm(),
+          ],
+        ),
+        bottomNavigationBar: BottomBar(),
       ),
-      bottomNavigationBar: BottomBar(),
     );
   }
 }
@@ -87,40 +94,68 @@ class BottomBar extends StatelessWidget {
   }
 }
 
-
 class DishForm extends StatefulWidget {
   @override
   _DishFormState createState() => _DishFormState();
 }
 
 class _DishFormState extends State<DishForm> {
-  final _formkey = GlobalKey<FormState>();
-  var _passKey = GlobalKey<FormFieldState>();
 
-  String _password = '';
+  final _formKey = GlobalKey<FormState>();
+
+  DishesBloc _bloc;
+  String _name;
+  String _description;
+  int _price;
+  int _offerPrice;
+  bool _isInOffer = false;
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _bloc = DishesBlocProvider.of(context);
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.image,
+            size: 30.0,
+          ),
+          onPressed: () {
+            //getImage();
+          },
+        ),
         Container(
-          height: 230,
+          height: 200,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(
-                'http://recetasthermomix.cl/wp-content/uploads/2015/01/chupe-jaiba-1100x715.jpg',
+              image: (_image!=null)?Image.file(
+                _image,
+              ):NetworkImage(
+                "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
               ),
               fit: BoxFit.fitWidth,
             ),
-          ),
+          ),*/
         ),
         Center(
           child: Padding(
-            padding: const EdgeInsets.only(top: 150),
+            padding: const EdgeInsets.only(top: 100),
             child: Container(
-              height: 340,
-              width: MediaQuery.of(context).size.width-32,
+              height: 440,
+              width: MediaQuery.of(context).size.width - 32,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -132,10 +167,13 @@ class _DishFormState extends State<DishForm> {
                   ),
                 ],
               ),
-              child: Form(
-                key: _formkey,
-                child: ListView(
-                  children: getFormWidget(),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: getFormWidget(),
+                  ),
                 ),
               ),
             ),
@@ -147,34 +185,139 @@ class _DishFormState extends State<DishForm> {
 
   List<Widget> getFormWidget() {
     List<Widget> formWidget = new List();
+
     formWidget.add(
-      new TextFormField(
-          key: _passKey,
-          obscureText: true,
-          decoration: InputDecoration(
-              hintText: 'Password', labelText: 'Enter Password'),
-        validator: (String value) {
-          return value.contains('@') ? 'Do not use the @ char.' : null;
+      TextFormField(
+        decoration: InputDecoration(
+          hintText: 'Nombre',
+          labelText: 'Ingresar Nombre',
+        ),
+        validator: (value) {
+          return value.isEmpty ? 'Debe ingresar un nombre' : null;
+        },
+        onSaved: (value) {
+          setState(() {
+            this._name = value[0].toUpperCase() + value.substring(1);
+          });
         },
       ),
     );
 
     formWidget.add(
-      new TextFormField(
-          obscureText: true,
-          decoration: InputDecoration(
-              hintText: 'Confirm Password',
-              labelText: 'Enter Confirm Password'),
-          validator: (String value) {
-            return value.contains('@') ? 'Do not use the @ char.' : null;
-          },
-          onSaved: (value) {
-            setState(() {
-              _password = value;
-            });
-          }),
+      TextFormField(
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          hintText: 'Precio',
+          labelText: 'Ingresar Precio',
+        ),
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Debe ingresar un precio';
+          } else {
+            return value.contains(RegExp(r'[,.-\s]'))
+                ? 'Ingrese valor sin puntos, comas ni espacios'
+                : null;
+          }
+        },
+        onSaved: (value) {
+          setState(() {
+            this._price = int.parse(value);
+          });
+        },
+      ),
     );
+
+    formWidget.add(
+      TextFormField(
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          hintText: 'Precio Oferta',
+          labelText: 'Ingresar Precio Oferta (Opcional)',
+        ),
+        validator: (value) {
+          if (value.isEmpty) {
+            return null;
+          } else {
+            return value.contains(RegExp(r'[,.-\s]'))
+                ? 'Ingrese valor sin puntos, comas ni espacios'
+                : null;
+          }
+        },
+        onSaved: (value) {
+          setState(() {
+            if (value.isEmpty) {
+              this._offerPrice = 0;
+            } else {
+              this._offerPrice = int.parse(value);
+            }
+          });
+        },
+      ),
+    );
+
+    formWidget.add(
+      TextFormField(
+        keyboardType: TextInputType.multiline,
+        maxLines: 4,
+        decoration: InputDecoration(
+          hintText: 'Descripción',
+          labelText: 'Ingresar Descripción',
+        ),
+        validator: (value) {
+          return value.isEmpty ? 'Debe ingresar una descripción' : null;
+        },
+        onSaved: (value) {
+          setState(() {
+            this._description = value;
+          });
+        },
+      ),
+    );
+
+    formWidget.add(
+      ButtonTheme(
+        height: 40,
+        buttonColor: Color(0xFF52CEE2),
+        child: RaisedButton(
+          elevation: 0,
+          highlightElevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Agregar Nuevo Plato',
+                style: TextStyle(fontSize: 12, color: Colors.white),
+              ),
+            ],
+          ),
+          onPressed: () {
+            if (this._formKey.currentState.validate()) {
+              setState(() {
+                this._formKey.currentState.save();
+              });
+
+              //uploadPic(context);
+
+              _bloc.registerDish(
+                  _name,
+                  _description,
+                  'costasDelEste',
+                  '',
+                  0,
+                  0,
+                  _price,
+                  _offerPrice,
+                  _isInOffer,
+                  true);
+            }
+          },
+        ),
+      ),
+    );
+
     return formWidget;
   }
 }
-
