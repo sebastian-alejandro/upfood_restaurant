@@ -12,7 +12,26 @@ class FirestoreAPI {
 
     final List<DocumentSnapshot> documents = result.documents;
 
-    if (documents.length == 0 || documents.elementAt(0).data[password] != password) {
+    if (documents.length == 0) {
+      return false;
+    } else if (documents.elementAt(0).data['password'] != password){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  Future<bool> authenticateRestaurant(String email, String password) async {
+    final QuerySnapshot result = await _firestore
+        .collection('restaurants')
+        .where('email', isEqualTo: email)
+        .getDocuments();
+
+    final List<DocumentSnapshot> documents = result.documents;
+
+    if (documents.length == 0) {
+      return false;
+    } else if (documents.elementAt(0).data['password'] != password){
       return false;
     } else {
       return true;

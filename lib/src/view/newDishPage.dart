@@ -304,8 +304,8 @@ class _DishFormState extends State<DishForm> {
               _bloc.registerDish(
                   _name,
                   _description,
-                  'costasDelEste',
-                  '',
+                  'flordeChile',
+                  'https://www.dragonclawacademy.com/wp-content/uploads/2017/04/default-image.jpg',
                   0,
                   0,
                   _price,
