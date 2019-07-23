@@ -11,7 +11,18 @@ class Dish {
   bool _isInOffer;
   bool _isEnabled;
 
-  Dish(this._id, this._name, this._description, this._restaurantName, this._imgUrl, this._rating, this._reviews, this._price, this._offerPrice, this._isInOffer, this._isEnabled);
+  Dish(
+      this._id,
+      this._name,
+      this._description,
+      this._restaurantName,
+      this._imgUrl,
+      this._rating,
+      this._reviews,
+      this._price,
+      this._offerPrice,
+      this._isInOffer,
+      this._isEnabled);
 
   String get id => _id;
   String get name => _name;
@@ -24,5 +35,4 @@ class Dish {
   int get offerPrice => _offerPrice;
   bool get isInOffer => _isInOffer;
   bool get isEnabled => _isEnabled;
-
 }
